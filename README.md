@@ -4,7 +4,12 @@ django-quickbooks-online - An app for communicating with Quickbooks via the Quic
 
 [![Build Status](https://travis-ci.org/grue/django-quickbooks-online.png)](https://travis-ci.org/grue/django-quickbooks-online)
 
-This project was forked from [django-quickbooks](https://github.com/setaris/django-quickbooks), originally developed by [hiidef](https://github.com/hiidef), with contributions from [setaris](https://github.com/setaris). 
+This project was forked from [django-quickbooks-online](https://github.com/grue/django-quickbooks-online) by [grue](https://github.com/grue/), which was forked from [django-quickbooks](https://github.com/setaris/django-quickbooks), originally developed by [hiidef](https://github.com/hiidef), with contributions from [setaris](https://github.com/setaris). 
+
+This fork:
+* uses settings.AUTH_USER_MODEL and get_user_model() instead of referencing django.contrib.auth.models.User
+* updates migrations for django 1.7
+* fixes a JSON serialization error caused by putting an HttpResponse object in a session
 
 django-quickbooks-online handles communicating with the Quickbooks API. Using
 this app, you can perform CRUD operations on any of the object classes
