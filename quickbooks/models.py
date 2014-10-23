@@ -1,10 +1,11 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth.models import User
 from django_extensions.db.fields.encrypted import EncryptedCharField
 
 
 class QuickbooksToken(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     access_token = EncryptedCharField(max_length=255)
     access_token_secret = EncryptedCharField(max_length=255)
     realm_id = models.CharField(max_length=64)
@@ -16,7 +17,7 @@ class MissingTokenException(Exception):
 
 
 def find_quickbooks_token(request_or_user):
-    if isinstance(request_or_user, User):
+    if isinstance(request_or_user, get_user_model()):
         user = request_or_user
     else:
         user = request_or_user.user

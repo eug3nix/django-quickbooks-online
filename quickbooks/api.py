@@ -2,7 +2,7 @@ import urllib
 
 from requests_oauthlib import OAuth1Session
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from quickbooks.models import QuickbooksToken
 
 APPCENTER_URL_BASE = 'https://appcenter.intuit.com/api/v1/'
@@ -38,7 +38,7 @@ class DuplicateItemError(ApiError):
 class QuickbooksApi(object):
     """ This is an interface to the QBD and QBO v3 api."""
     def __init__(self, owner_or_token):
-        if isinstance(owner_or_token, User):
+        if isinstance(owner_or_token, get_user_model()):
             self.token = QuickbooksToken.objects.filter(user=owner_or_token).first()
         elif isinstance(owner_or_token, QuickbooksToken):
             self.token = owner_or_token
