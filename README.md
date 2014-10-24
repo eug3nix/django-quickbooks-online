@@ -27,14 +27,16 @@ Installation
 4. Add a settings dictionary. OAUTH_CALLABACK_URL can be a string or
    callable. If it's a callable, it'll be passed the request context.:
 
-```
        QUICKBOOKS = {
             'CONSUMER_KEY': 'consumer_key_from_quickbooks',
             'CONSUMER_SECRET': 'consumer_secret_from_quickbooks',
             'OAUTH_CALLBACK_URL': string_or_callable,
             'ACCESS_COMPLETE_URL': 'string'
         }
-```
+
+   Optional keys for DESKTOP_V3_URL_BASE and ONLINE_V3_URL_BASE may be 
+   added to override the default API base URLs. This is useful when testing
+   with sandbox companies.
 
 5. You'll need to set up you Keyczar keychain now:
    

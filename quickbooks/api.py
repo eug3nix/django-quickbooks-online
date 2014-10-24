@@ -54,8 +54,10 @@ class QuickbooksApi(object):
         self.session = session
         self.realm_id = self.token.realm_id
         self.data_source = self.token.data_source
-        self.url_base = {'QBD': QUICKBOOKS_DESKTOP_V3_URL_BASE,
-                         'QBO': QUICKBOOKS_ONLINE_V3_URL_BASE}[self.token.data_source]
+        self.url_base = {
+            'QBD': settings.QUICKBOOKS.get('DESKTOP_V3_URL_BASE', QUICKBOOKS_DESKTOP_V3_URL_BASE),
+            'QBO': settings.QUICKBOOKS.get('ONLINE_V3_URL_BASE', QUICKBOOKS_ONLINE_V3_URL_BASE)
+        }[self.token.data_source]
 
     def _appcenter_request(self, url, retries=3):
         full_url = APPCENTER_URL_BASE + url
