@@ -5,7 +5,7 @@ setup(
 
     name = "django-quickbooks-online",
 
-    version = '0.2.1',
+    version = '0.2.2',
 
     packages = find_packages(),
 
@@ -15,11 +15,11 @@ setup(
     # metadata for upload to PyPI
     author = "Hans Kuder",
     author_email = "hans@hiidef.com",
-    maintainer = "Joshua Sorenson",
-    maintainer_email = "josh@grue.io",
+    maintainer = "James O'Donnell",
+    maintainer_email = "james@squarefactor.com",
     description = "Django Quickbooks App",
     license = "MIT License",
     keywords = "django quickbooks intuit",
-    url = "http://github.com/grue/django-quickbooks-online",
+    url = "http://github.com/squarefactor/django-quickbooks-online",
 
 )
