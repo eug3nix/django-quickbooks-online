@@ -1,5 +1,6 @@
 import urllib
 
+from requests.exceptions import RequestException
 from requests_oauthlib import OAuth1Session
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -80,6 +81,17 @@ class QuickbooksApi(object):
     def disconnect(self):
         return self._appcenter_request('connection/disconnect')
 
+    def request(self, method, url, body=None):
+        url = url.lower()
+        try:
+            if body is None:
+                response = method(url)
+            else:
+                response = method(url, body)
+            return response.json()
+        except RequestException, e:
+            raise CommunicationError(e.message)
+
     def read(self, object_type, entity_id):
         """ Make a call to /company/<token_realm_id>/<object_type>/<entity_id>
             This will return the details for the entity id in the
@@ -96,7 +108,7 @@ class QuickbooksApi(object):
          }
          """
         constructed_url = "{}/company/{}/{}/{}".format(self.url_base, self.realm_id, object_type, entity_id)
-        return self.session.get(constructed_url).json()
+        return self.request(self.session.get, constructed_url)
 
     def query(self, query):
         """
@@ -108,22 +120,22 @@ class QuickbooksApi(object):
         # [todo] - add error handling for v3 query
         constructed_url = "{}/company/{}/query?query={}".format(
             self.url_base, self.realm_id, urllib.quote(query, safe=''))
-        return self.session.get(constructed_url).json()
+        return self.request(self.session.get, constructed_url)
 
     def create(self, object_type, object_body):
         # [todo] - add error handling for v3 create
         # [todo] - validate that the object_body is a proper json blob
         constructed_url = "{}/company/{}/{}".format(self.url_base, self.realm_id, object_type)
-        return self.session.post(constructed_url.lower(), object_body).json()
+        return self.request(self.session.post, constructed_url, object_body)
 
     def delete(self, object_type, object_body):
         # [todo] - add error handling for v3 delete
         # [todo] - validate that the object_body is a proper json blob
         constructed_url = "{}/company/{}/{}?operation=delete".format(self.url_base, self.realm_id, object_type)
-        return self.session.post(constructed_url.lower(), object_body).json()
+        return self.request(self.session.post, constructed_url, object_body)
 
     def update(self, object_type, object_body):
         # [todo] - add error handling for v3 update
         # [todo] - validate that the object_body is a proper json blob
         constructed_url = "{}/company/{}/{}?operation=update".format(self.url_base, self.realm_id, object_type)
-        return self.session.post(constructed_url.lower(), object_body).json()
+        return self.request(self.session.post, constructed_url, object_body)
