@@ -89,7 +89,7 @@ class QuickbooksApi(object):
             else:
                 response = method(url, body)
             return response.json()
-        except RequestException, e:
+        except RequestException as e:
             raise CommunicationError(e.message)
 
     def read(self, object_type, entity_id):
