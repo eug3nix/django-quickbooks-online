@@ -59,8 +59,7 @@ def get_access_token(request):
     data_source = remote_response['dataSource']
     oauth_verifier = remote_response['oauth_verifier']
 
-    # [review] - Possible bug? This should be taken care of by session.parse_authorization_response
-    session.auth.client.verifier = unicode(oauth_verifier)
+    session.auth.client.verifier = oauth_verifier
 
     response = session.fetch_access_token(ACCESS_TOKEN_URL)
 
