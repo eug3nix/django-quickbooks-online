@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
-from django_extensions.db.fields.encrypted import EncryptedCharField
+try:
+    from django_extensions.db.fields.encrypted import EncryptedCharField
+except ImportError:
+    from django_fields.fields import EncryptedCharField
 
 
 class QuickbooksToken(models.Model):
