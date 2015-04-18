@@ -1,5 +1,9 @@
+import uuid
 from setuptools import setup, find_packages
+from pip.req import parse_requirements
 
+install_reqs = [parse_requirements("requirements.txt", session=uuid.uuid1())
+reqs = [str(req.req) for req in install_reqs]
 
 setup(
 
@@ -9,7 +13,7 @@ setup(
 
     packages = find_packages(),
 
-    install_requires = ['requests', 'requests-oauthlib', 'python-keyczar==0.71c', 'django-extensions'],
+    install_requires = reqs,
     include_package_data = True,
 
     # metadata for upload to PyPI
