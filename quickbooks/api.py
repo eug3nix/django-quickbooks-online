@@ -1,4 +1,7 @@
-import urllib
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
 
 from requests.exceptions import RequestException
 from requests_oauthlib import OAuth1Session
@@ -119,7 +122,7 @@ class QuickbooksApi(object):
         """
         # [todo] - add error handling for v3 query
         constructed_url = "{}/company/{}/query?query={}".format(
-            self.url_base, self.realm_id, urllib.quote(query, safe=''))
+            self.url_base, self.realm_id, quote(query, safe=''))
         return self.request(self.session.get, constructed_url)
 
     def create(self, object_type, object_body):
