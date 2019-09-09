@@ -1,4 +1,4 @@
--e git+https://github.com/remarkablerocket/django-fields.git@72dc3ad3826e4b706f8e9ed7946f092c466a158e#egg=django_fields
+-e git+https://github.com/doordash/django-fields.git#egg=django_fields
 httpretty==0.8.0
 nose==1.3.0
 requests==2.2.1
